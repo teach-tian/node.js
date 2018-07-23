@@ -6,12 +6,11 @@
 windows下的离线安装：
 
 *nvm 的windows下载地址：[https://github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases) , 选择第二个nvm-setup.zip，这样安装方便些。
-
 *将下载的文件进行解压：nvm-setup.exe，单击开始安装，直接点击下一步解可以，当然我们需要注意一下两个界面：
   1.设置nvm路径
   2.设置node路径
 
-###安装完成以后需要进行配置
+##安装完成以后需要进行配置
 
 ## 项目运行
 
@@ -29,7 +28,7 @@ nvm npm_mirror  https://npm.taobao.org/mirrors/npm/
 ```
 
 
-###windows下nvm的命令([]中的参数可有可无)：
+##windows下nvm的命令([]中的参数可有可无)：
 
 
 ```

@@ -58,7 +58,8 @@ nvm list //查看以己经安装的
 ```
 
 
-#nodejs具体安装过程
+#nodejs具体安装过程：
+
 
 应为需要我们这里安装的是nodejs5.3.0版本，
 windows（安装windows 32位 nodejs5.3.0）:

@@ -5,13 +5,13 @@
 
 windows下的离线安装：
 
-*nvm 的windows下载地址：[https://github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases) , 选择第二个nvm-setup.zip，这样安装方便些。
+* nvm 的windows下载地址：[https://github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases) , 选择第二个nvm-setup.zip，这样安装方便些。
 
-*将下载的文件进行解压：nvm-setup.exe，单击开始安装，直接点击下一步解可以，当然我们需要注意一下两个界面：
-  1.设置nvm路径
-  2.设置node路径
+* 将下载的文件进行解压：nvm-setup.exe，单击开始安装，直接点击下一步解可以，当然我们需要注意一下两个界面：
+  1. 设置nvm路径
+  2. 设置node路径
 
-##安装完成以后需要进行配置
+## 安装完成以后需要进行配置
 
 ## 项目运行
 
@@ -29,7 +29,7 @@ nvm npm_mirror  https://npm.taobao.org/mirrors/npm/
 ```
 
 
-##windows下nvm的命令([]中的参数可有可无)：
+## windows下nvm的命令([]中的参数可有可无)：
 
 
 ```
@@ -51,7 +51,7 @@ nvm version                      查看当前的版本
 
 ```
 
-###下面是安装和使切换nodejs的几个简单的命令使用：
+### 下面是安装和使切换nodejs的几个简单的命令使用：
 ```
 nvm install 8.0.0 64-bit
 nvm use 8.0.0
@@ -59,7 +59,7 @@ nvm list //查看以己经安装的
 ```
 
 
-#nodejs具体安装过程：
+# nodejs具体安装过程：
 
 
 应为需要我们这里安装的是nodejs5.3.0版本，

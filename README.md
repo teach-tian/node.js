@@ -85,3 +85,29 @@ proxy: none
 node_mirror: https://npm.taobao.org/mirrors/node/ 
 npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```
+
+## Linux 命令：
+1.	ls 查看文件/目录
+2.	pwd  显示当前的工作目录 
+3.	cd    进入目录
+   [例子]： 
+   > cd 回到注册进入时的目录 
+   > cd /tmp 进入 /tmp 目录 
+   > cd ../ 进入上级目录 
+4.	mkdir  创建目录
+5． rmdir  删除目录
+6． cat  显示文件至标准输出
+7．cp   拷贝
+     [例子]: 
+   > cp file1 file2 将文件 file1 拷贝到文件 file2 
+8. mv 移动
+     - i 在覆盖已存在文件时作提示，若回答 y 则覆盖，其他则中止
+[例子]: 
+    > mv file1 file2 将文件 file1 改名为 file2 
+    > mv file1 file2 /tmp 将文件 file1 和文件 file2 移动到目录 /tmp 下
+9. touch 创建文件
+10.vi 编辑 
+   > i 插入  编辑内容
+   > esc  退出编辑
+   > ：wq 保存并退出
+

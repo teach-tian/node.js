@@ -87,6 +87,7 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```
 
 ## Linux 命令：
+```
 1.	ls 查看文件/目录
 2.	pwd  显示当前的工作目录 
 3.	cd    进入目录
@@ -110,4 +111,6 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
    > i 插入  编辑内容
    > esc  退出编辑
    > ：wq 保存并退出
+   
+   ```
 

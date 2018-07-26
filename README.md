@@ -114,7 +114,11 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
    
    ```
    
-   
+### 解决乱码问题
+
+```
+  res.setHeader('Content-Type','text/html;charset=utf-8')
+```
    
 ### 注册登录前端
 ```
@@ -187,4 +191,122 @@ app.listen(8888,function(){
 })
 ```
 
+### querystring 模块
+
+```
+//参数解析模块
+var querystring=require('querystring');
+
+var str= '/aaa?user=lisi&pass=1234567889';
+
+
+ var arr=str.split('?');
+
+
+ var url=arr[0];
+
+ var objstr=arr[1];  //  user=lisi&pass=1234567889
+
+ var query=querystring.parse(objstr)
+
+
+console.log(url,query)
+
+```
+### url 模块
+
+
+// url模块 解析 url
+var urlLib=require('url')
+
+var str= '/aaa?user=lisi&pass=1234567889';
+
+
+var obj=urlLib.parse(str,true);
+
+var url=obj.pathname; //路径
+
+var urlObj=obj.query
+
+
+console.log(url,urlObj)
+
+
+### post请求
+```
+    var url=urlLib.parse(req.url,true).pathname;
+
+    var str=''
+    req.on('data',function(thunk){
+        str+=thunk;
+    })
+
+    req.on('end',function(){
+        console.log(url,querystring.parse(str))
+    })
+
+  
+```
+
+### data 分次发送
+
+```
+
+    var str=req.url;//  /home
+
+    var url=urLib.parse(str,true).pathname;
+
+    var str=''
+      
+    var i=0;
+
+    //分段传送  每当有一段数据提交过来 data事件就会触发一次
+    req.on('data',function(thunk){
+        i++
+        console.log("当前次数为"+i)
+        str+=thunk;
+    });
+
+    req.on('end',function(){
+        console.log(querystring.parse(str));
+    })
+
+```
+
+
+### npm 包发布
+
+
+1.创建文件  loverqq
+
+2.cd loverqq
+
+3.执行 npm init  
+
+       配置向导  name  version  description .....
+
+       生成package.json  文件
+      
+       创建 index.js   
+              --------定义模块 并且导出
+
+4.注册  npm 账号 
+
+   执行  npm adduser    // 注册npm
+
+         username:tianxing
+         password:11111111
+         email:25554544@xx.com
+
+     Logged in as tianxing on       https://registry.npmjs.org/.
+
+
+5.发布 模块
+
+    执行 npm publish
+
+
+6.使用
+
+  npm install loverqq     cnpm install loverqq
 

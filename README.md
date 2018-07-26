@@ -113,4 +113,78 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
     ：wq 保存并退出
    
    ```
+   
+   
+   
+### 注册登录前端
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="http://localhost:8888/home/list/li/abc" method="post">
+ 
+       用户名：<input type="text" name='user'> <br>
+       密码：<input type="password" name='pass'>  <br>
+       <button type="submit">登录</button>
+
+    </form>
+</body>
+</html>
+```
+
+### 后端
+
+```
+var http=require('http');
+
+var fs=require('fs');
+
+var app=http.createServer(function(req,res){
+    
+    console.log(req.url)//     /aaa?user=lisi&pass=1234567889
+
+
+    // var url='/aaa';
+
+    // var obj={user:'lisi',pass:123456789}
+
+
+    var str=req.url; // /aaa?user=lisi&pass=1234567889
+
+
+      var obj={}
+
+    var url_str=str.split('?');//字符串 以 指定字符 分割成数组   ['/aaa','user=lisi&pass=1234567889']
+
+        var url=url_str[0];  //   路径 /aaa
+
+        var arr=url_str[1].split('&');  //   ['user=lisi','pass=1234567889']
+
+         for(var i=0;i<arr.length;i++){
+              var arr1= arr[i].split("=") //  [uaer,lisi]  
+              obj[arr1[0]]=arr1[1]
+         }
+
+
+   console.log(url,obj)
+
+
+
+
+   
+})
+
+
+app.listen(8888,function(){
+    console.log('服务器运行成功')
+})
+```
+
 

@@ -309,4 +309,108 @@ console.log(url,urlObj)
 6.使用
 
   npm install loverqq     cnpm install loverqq
+  
+  
+### 通过HTTP请求响应过程了解HTTP协议
+      首先了解一次完整的HTTP请求到响应的过程需要的步骤
+
+      1. 域名解析 
+      2. 发起TCP的3次握手 
+      3. 建立TCP连接后发起http请求 
+      4. 服务器端响应http请求，浏览器得到html代码 
+      5. 浏览器解析html代码，并请求html代码中的资源 
+      6. 浏览器对页面进行渲染呈现给用户
+      1.域名解析
+      就是将网站名称转变成IP地址：localhost-->127.0.0.1
+      DNS域名解析等等可以实现这种功能
+      2.发起TCP的3次握手
+      在客户机和服务器之间建立正常的TCP网络连接时：
+
+      客户机首先发出一个SYN消息，
+
+      服务器使用SYN+ACK应答表示接收到了这个消息，
+
+      最后客户机再以ACK消息响应。
+
+      这样在客户机和服务器之间才能建立起可靠的TCP连接，数据才可以在客户机和服务器之间传递。
+      下面一段内容引自一次完整的HTTP事务是怎样一个过程？
+
+      拿到域名对应的IP地址之后，User-Agent（一般是指浏览器）会以一个随机端口（1024 < 端口 < 65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求（原始的http请求经过TCP/IP4层模型的层层封包）到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序（本文就以Nginx为例），最终建立了TCP/IP的连接。
+      
+      3.发起HTTP请求(HTTP Request)
+      所谓的HTTP请求，也就是Web客户端向Web服务器发送信息，这个信息由如下三部分组成：
+
+      （1）请求行
+
+      例如：GET www.cnblogs.com HTTP/1.1
+      请求行写法是固定的，由三部分组成，
+
+      第一部分是请求方法：
+
+      除了常见的只有Get和Post方法，实际上HTTP请求方法还有很多，比如： PUT方法，DELETE方法，HEAD方法，CONNECT方法，TRACE方法
+
+      第二部分是请求网址，
+
+      第三部分是HTTP版本。
+      （2）HTTP头
+
+      HTTP头在HTTP请求可以是3种HTTP头：1. 请求头(request header)  2. 普通头(general header)  3. 实体头(entity header)
+
+      通常来说，由于Get请求往往不包含内容实体，因此也不会有实体头。
+      （3）内容
+
+      只在POST请求中存在，因为GET请求并不包含任何实体
+      4.服务器端HTTP响应(HTTP Response)请求
+      当Web服务器收到HTTP请求后，会根据请求的信息做某些处理(这些处理可能仅仅是静态的返回页，或是包含Asp.net, PHP, Jsp等语言进行处理后返回)，相应的返回一个HTTP响应。HTTP响应在结构上很类似于HTTP请求，也是由三部分组成，分别为:
+
+      1.状态行
+
+      例如：HTTP/1.1 200 OK
+
+      第一部分是HTTP版本
+
+      第二部分是响应状态码
+      第三部分是状态码的描述
+
+          信息类 (100-199)
+          响应成功 (200-299)
+          重定向类 (300-399)
+          客户端错误类 (400-499)
+          服务端错误类 (500-599)
+      详细HTTP 状态消息请看:HTTP 状态消息
+      
+      常见状态代码、状态描述的说明如下。
+      200 OK：客户端请求成功。
+      400 Bad Request：客户端请求有语法错误，不能被服务器所理解。
+      401 Unauthorized：请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。
+      403 Forbidden：服务器收到请求，但是拒绝提供服务。
+      404 Not Found：请求资源不存在，举个例子：输入了错误的URL。
+      500 Internal Server Error：服务器发生不可预期的错误。
+      503 Server Unavailable：服务器当前不能处理客户端的请求，一段时间后可能恢复正常，举个例子：HTTP/1.1 200 OK（CRLF）。
+
+      2.HTTP头
+
+      HTTP响应中包含的头包括：1. 响应头(response header) 2. 普通头(general header) 3. 实体头(entity header)。
+      3.返回内容
+
+      HTTP响应内容就是HTTP请求所请求的信息。这个信息可以是一个HTML，也可以是一个图片。响应的数据格式通过Content-Type字段来获得：Content-Type：image/png；或者我们熟悉的Content-Type：text/html
+      下面是一些常见的Content-Type字段的值。
+
+          text/plain
+          text/html
+          text/css
+          image/jpeg
+          image/png
+          image/svg+xml
+          audio/mp4
+          video/mp4
+          application/javascript
+          application/pdf
+          application/zip
+          application/atom+xml
+
+      5.浏览器解析html代码，并请求html代码中的资源
+      了解持久连接
+
+      有时候我们获取一个HTML页面，在对浏览器对HTML解析的过程中，如果发现额外的URL需要获取的内容，会再次发起HTTP请求去服务器获取，比如样式文件，图片。许多个HTTP请求，只依靠一个TCP连接就够了，这就是所谓的持久连接。也是所谓的一次HTTP请求完成。
 

@@ -414,3 +414,64 @@ console.log(url,urlObj)
 
       有时候我们获取一个HTML页面，在对浏览器对HTML解析的过程中，如果发现额外的URL需要获取的内容，会再次发起HTTP请求去服务器获取，比如样式文件，图片。许多个HTTP请求，只依靠一个TCP连接就够了，这就是所谓的持久连接。也是所谓的一次HTTP请求完成。
 
+
+### express
+ 1. cnpm install -g express   全局安装express 
+     //跳过1直接安装4.0以上版本
+  
+ 2. cnpm install -g express-generator  安装4.0之后的express
+ 3. express -V                检测express 版本号
+ 4. express -e blog && cd blog
+         （ blog是安装的文件夹名）
+
+5. npm install
+       （安装express及依赖）
+
+6. npm start
+（这里需要注意 express 4.x 无法以 node app.js 为启动方式，而是用指令 npm start 作为启动）
+
+ 访问 http://localhost:3000/ 出现熟悉的Welcome to Express，证明安装成功。
+---------------------------------------------------------------------------------------
+项目创建成功之后，生成四个文件夹，
+
+app.js 是主文件
+
+packetage.json 是配置信息文件
+
+bin是项目的启动文件，配置以什么方式启动项目，默认 npm start
+
+public是项目的静态文件，放置js css img等文件
+
+routes是项目的路由信息文件,控制地址路由
+
+views是视图文件，放置模板文件ejs或jade,swig等（其实就相当于html形式文件啦~)
+
+node_modules 是项目依赖的各种插件
+
+express这样的MVC框架模式，是一个Web项目的基本构成。
+-----------------------------------------------------------------------------------------
+app.js 探究
+
+补充：
+```
+全局对象
+__dirname  表示当前执行脚本所在的目录。
+—filename  表示当前执行脚本文件路径（绝对路径）
+
+path 模块
+
+var path = require("path");
+
+// 格式化路径   注意'..' 和 '.'。
+console.log(path.normalize('/test/test1//2slashes/1slash/tab/..'));
+//   /test/test1/2slashes/1slash
+
+
+// 连接路径
+console.log(path.join('/test', 'test1', '2slashes/1slash', 'tab', '..'));
+//    /test/test1/2slashes/1slash
+
+// 转换为绝对路径
+console.log(path.resolve('main.js'));
+//   /web/com/1427176256_27423/main.js
+```

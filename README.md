@@ -98,7 +98,7 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 4.	mkdir  创建目录
 5． rmdir  删除目录
 6． cat  显示文件至标准输出
-7．cp   拷贝
+7． cp   拷贝
      [例子]: 
     cp file1 file2 将文件 file1 拷贝到文件 file2 
 8. mv 移动
@@ -111,8 +111,28 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
     i 插入  编辑内容
     esc  退出编辑
     ：wq 保存并退出
-   
+    
    ```
+   
+### windows常用新建文件命令：
+
+创建文件夹：md 文件夹名
+
+创建空的文件：type nul>文件名
+
+创建有内容文件：echo "内容">文件名
+
+查看文件内容：type +文件名
+
+查看目录及子文件：dir
+
+删除空文件夹：rd 文件夹名
+
+删除文件及所有子文件：rd /s/q 文件夹名
+
+删除文件：del 文件名
+
+   
    
 ### 解决乱码问题
 

@@ -441,11 +441,14 @@ console.log(url,urlObj)
 
 
 2.创建数据库 
+```
    cd c:\  (进入c盘根路径）
    mkdir data (创建文件夹data)
    cd data    (进入文件夹)
    mkdir db   (创建文件夹db)
+ ```
 3.连接数据库服务器
+```
    进入 C:\Program Files\MongoDB\Server\3.4\bin
    
    注意：   mongod  服务器的可执行文件
@@ -458,9 +461,11 @@ console.log(url,urlObj)
   mongo  连接数据库服务器
 
   show dbs  查看数据库
+  
+  ```
 
 4.创建服务器配置
-
+```
   cd c:\data   (进入data目录)  
   
   mkdir etc     (创建etc目录)
@@ -481,9 +486,9 @@ console.log(url,urlObj)
             quiet=false
             #端口号 默认为27017
             port=27017
-
+```
   5.创建日志文件
-  
+  ```
    cd c:\data   (进入data目录)  
    md log    (创建目录log)
    cd log    (进入目录log)
@@ -497,13 +502,13 @@ console.log(url,urlObj)
             -----mongo.conf
     -----log 数据库日志    
             -----mongodb.log
-
+```
   6. 启动数据库服务器   
-
+```
     C:\Program Files\MongoDB\Server\3.4\bin
 
     mongod --config c:/mongodb/etc/mongo.conf       启动后无任何反应
-
+```
    7. 连接数据库
 
      mongo 

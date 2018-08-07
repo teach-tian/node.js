@@ -612,3 +612,54 @@ console.log(path.join('/test', 'test1', '2slashes/1slash', 'tab', '..'));
 console.log(path.resolve('main.js'));
 //   /web/com/1427176256_27423/main.js
 ```
+## app.js
+
+```
+
+var express=require("express");  //http 
+
+var app=express();// 创建app服务器  === http.createServer()
+
+var RouterA=require('./routes/a.js');
+var RouterHome=require('./routes/home')
+
+var path=require("path");
+
+var port=3000; //端口
+
+var ejs=require("ejs");
+
+//设置 视图文件路径
+app.set("views",path.join(__dirname,"views"));
+
+//设置解析 视图文件的引擎
+app.set('view engine','ejs')
+
+//设置静态资源的路径
+app.use('/public',express.static(path.join(__dirname,'public')))
+
+var ip='127.0.0.1';//ip
+
+app.listen(port,ip,function(){  //app服务器监听端口
+  console.log("服务器运行在http://"+ip+":"+port)
+});
+
+
+app.use('/',RouterHome)
+app.use('/a',RouterA)
+
+
+function fn(req,res){ // app添加 get请求根路径的路由
+    // res.send("hello world");// 向前台输出
+    console.log(req.url)
+    res.write("hello express123");
+    res.end()
+}
+
+
+// module.exports=app;
+
+```
+
+
+

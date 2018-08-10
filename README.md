@@ -703,23 +703,43 @@ module.exports=user;
 添加数据
 
    基于model操作
-1. DB.create({user:user,txt:txt,times:new Date()},function(err,doc){
+1. collection.create({user:user,txt:txt,times:new Date()},function(err,doc){
            if(err){
                console.log('写入失败')
            }else{
-               console.log('写入成功：插入的文档为'+doc)
+               console.log('写入成功：插入的文档为'+doc);
+               res.redirect('/')
            }
     })
     
     基于 entity 操作
 2.  var entity={user:user,txt:txt,times:new Date()};
-    var mydb=new DB(entity);
+    var mydb=new collection(entity);
             mydb.save(function(err,doc){
                         if(!err){
                         console.log('写入成功'+doc);
                     }
             })
-
+            
+ 3. 删除
+   
+    colletion.remove({_id:c}).then(function(){
+        console.log("删除成功");
+        res.redirect('/')
+    })
+ 4. 修改
+ 
+     collection.update({_id:id},{$set:{user:'张三',txt:'hello word',times:new Date()}},function(err,data){
+       if(!err){
+      res.redirect("/")
+        }
+      })
+ 
+ 5.查找
+ 
+   collection.find({}).sort({_id:-1}).skip(5).limit(5).exac(function(err,docs){
+     
+   })
 ```
 
 

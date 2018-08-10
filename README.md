@@ -661,5 +661,69 @@ function fn(req,res){ // app添加 get请求根路径的路由
 
 ```
 
+# mongoose 操作
+```
+数据库连接：
+
+ mongoose.connect('mongodb://127.0.0.1:27017/xyz',function(err){
+
+     if(err){
+         console.log('数据库连接失败')
+     }else{
+       console.log('数据库连接成功')
+      server.listen(port);
+      server.on('error', onError);
+      server.on('listening', onListening);
+     }
+ })
+ 
+ 创建schema
+ 
+var mongoose=require('mongoose');
+var schema=mongoose.Schema;
+// 数据库中 集合的 文档 结构
+var mySchema=new schema({
+    user:{type:String,default:'张三'},
+    txt:'string',
+    times:{type : Date, default: Date.now},
+})
+
+module.exports=mySchema;
+
+
+创建 model
+
+var mongoose=require('mongoose');
+var schema=require('../shemas/user')
+//创建集合类  
+var user=mongoose.model('user',schema);
+module.exports=user;
+
+
+添加数据
+
+   基于model操作
+1. DB.create({user:user,txt:txt,times:new Date()},function(err,doc){
+           if(err){
+               console.log('写入失败')
+           }else{
+               console.log('写入成功：插入的文档为'+doc)
+           }
+    })
+    
+    基于 entity 操作
+2.  var entity={user:user,txt:txt,times:new Date()};
+    var mydb=new DB(entity);
+            mydb.save(function(err,doc){
+                        if(!err){
+                        console.log('写入成功'+doc);
+                    }
+            })
+
+
+
+ 
+
+```
 
 

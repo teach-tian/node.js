@@ -528,18 +528,16 @@ console.log(url,urlObj)
  use demo   创建demo数据库
  show dbs   看不到
  db.createCollection('user') 创建user集合
- db.user.insert({name:'张三',age:20})   创建users 集合 并插入一条数据
-
- show collections  查看集合
+ show collections  查看集合  show tables 相同
+ db.user.insert({name:'张三',age:20})   创建users 集合 并插入一条文档
+ db.user.insert([{name:'张三',age:20},{name:'李四'，age:30}])  插入多条文档
+ 
 ------------删--------------------
 db.dropDatabase() ;删除当前所在数据库
-
-use demo
-db.user.insert({name:'张三'，age:20})
-show dbs
-show collections
 db.user.drop() 删除集合
-db.user.remove({name:'张三'});删除文档  不带参数 {} 删除所有
+db.user.remove({name:'张三'});删除name为张三的文档     参数 {} 删除所有
+
+
 --------------查-------------------
 db.user.find(); 查询所有  想格式化 .pretty()
 db.user.findOne();查询第一条  

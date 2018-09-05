@@ -658,6 +658,41 @@ function fn(req,res){ // app添加 get请求根路径的路由
 // module.exports=app;
 
 ```
+#bodyParser中间件的使用
+```
+执行指令： cnpm install body-parser -D
+
+var bodyParser=require('body-parser');
+
+app.use(bodyParser.urlencoded({extended:true,limit:100}))
+
+app.post('/api',function(req,res,next){
+  console.log(req.body)
+})
+
+```
+
+
+# bodyParser 中间件的封装
+```
+var str=''
+var querystring=require('querystring')
+app.use(function(req,res,next){
+   
+     req.on('data',function(thunk){
+         str+=thunk;
+
+     })
+     req.on('end',function(){
+           req.body=querystring.parse(str);
+           next();
+     })
+})
+
+app.post('/add',function(req,res,next){
+       console.log(req.body);
+})
+```
 
 # mongoose 操作
 ```

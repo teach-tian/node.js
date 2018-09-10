@@ -775,4 +775,41 @@ module.exports=user;
    })
 ```
 
+# cookie 
+```
+const express=require('express');
+const cookieParser=require('cookie-parser');
+
+var server=express();
+
+
+
+//添加cookie 签名
+server.use(cookieParser('wesdfw4r34tf'));
+
+server.use('/', function (req, res){
+
+  //向浏览器存入 带签名的cookie
+  res.cookie('user', 'xiaoming', {signed: true});
+  
+  //向浏览器存入不带签名的cookie
+  res.cookie('pass',123456)
+
+  console.log('签名cookie：', req.signedCookies)
+  console.log('无签名cookie：', req.cookies);
+ 
+  //清除cookie
+   res.clearCookie('user');
+  res.send('ok');
+});
+
+server.listen(8080);
+
+```
+
+# session
+```
+
+```
+
 

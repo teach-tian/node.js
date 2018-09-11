@@ -813,6 +813,8 @@ server.listen(8080);
 ```
 
 # jade
+
+### 根据缩进划分层级
 ```
 //安装jade
 cnpm install jade
@@ -856,6 +858,8 @@ style属性 用{}   带有杠的CSS属性写法
 
 a(style={'z-index':'99',color:'red'})------------><a style="z-index":99,color:red></a>
 
+class属性用 []
+p(class=['a','b']) --------------->  <p class='a b'></p>
 
 4.字符转义
 

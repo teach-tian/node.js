@@ -812,4 +812,232 @@ server.listen(8080);
 
 ```
 
+# jade
+```
+//安装jade
+cnpm install jade
+
++index.jade
+ ----------------------------------
+doctype html
+heml
+    head
+        title 我的博客
+    body
+        div
+           h1 积云博客
+-----------------------------------
++server.js
+var jade=require('jade');
+//将jade文件渲染成html文件   pretty 格式化
+var str=jade.renderFile('./index.jade',{pretty:true});
+console.log(str);
+
+执行代码：node server  
+
+
+1.选择器的使用
+
+p#box.a.b ------>  <p class='a b' id='box'>
+
+2.如果省略标签元素，默认是div
+
+#box----------> <div></div>
+
+3.属性的使用 多个属性用,号隔开
+
+input.a(name='user',type='text')  -----> <input class='a' name='user' type='text'>
+
+也可以换行 （此时,可以省略）
+input.a(name='user'
+type='text')                -----> <input class='a' name='user' type='text'>
+
+style属性 用{}   带有杠的CSS属性写法
+
+a(style={'z-index':'99',color:'red'})------------><a style="z-index":99,color:red></a>
+
+
+4.字符转义
+
+使用=赋值会进行转义
+
+div(href="https://www.baidu.com/s?wd=jade&ws=jades")
+编译后:
+<div href="https://www.baidu.com/s?wd=jade&amp;ws=jades"></div>
+& 发生了转义 &amp;
+
+使用!=不会转义
+
+div(href!="https://www.baidu.com/s?wd=jade&ws=jades")
+编译后:
+<div href="https://www.baidu.com/s?wd=jade&ws=jades"></div>
+
+5.变量的使用
+
+单个变量
+
+- var code = 1;
+p.bt #{code}   -----------><p class="bt">1</p>
+
+对象
+
+- var code = {z:1,q:2};
+p.bt #{code.q} -----------------><p class="bt">2 </p>
+
+字符串拼接
+- var code = {z:1,q:2};
+p(class='bt'+code.z) #{code.q} ----------------><p class="bt1">2</p>
+
+!{} 不对字符串进行转义
+- var str = 'user=小明&psss=123456'
+p #{str} ------------> <p>user=小明&amp;psss=123456</p>
+p !{str} ------------> <p>user=小明&psss=123456</p>
+
+6.流程控制语句
+
+For 语句
+
+- for(var i=0;i<2;i++)
+   div #{i} //注意缩进       -------->     <div>0</div>
+                                           <div>1</div>
+                                           
+If...else 语句
+
+- var ifv = true;
+if(ifv)
+    div  为真               ---------->    <div>为真</div>
+else
+    div 为假         
+    
+    
+case 语句  （等同于js中的 switch语句）
+
+
+- var i=0;
+case i
+    when 0
+        div 变量为#{i}
+    when 1               ------------------><div>变量为0</div>
+        div 变量为1
+    default
+        div 没有匹配项
+7.注释
+
+html可见注释
+
+//html可见注释
+div.bt         ---------->    <!--html可见注释-->
+                               <div class="bt"></div>
+
+
+html不可见注释
+
+//-html不可见注释
+div.bt         ------------->   <div class="bt"></div>
+
+
+多行注释(注意缩进)
+
+//
+  div.bt      -------------->   <!--div.bt-->
+
+8.include
+
+
+doctype html
+html
+  head
+    style
+      include style.css
+  body
+    script
+      include script.js
+ 
+编译后:（一定要有这两个文件，不然jade会报错）
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    p{
+    color:red;
+    }
+    </style>
+  </head>
+  <body>
+    <script>console.log(1)</script>
+  </body>
+</html>
+
+
+9.extends与block
+
+
+layout.jade
+----------------------------
+doctype html
+html
+    head
+        title hello jade!
+    body
+　　　　 block content
+        
+        block foot        
+---------------------------
+
+index.jade
+--------------------------
+extends ./layout.jade
+
+block content
+       h1 content主体部分 
+
+block foot
+    h1 foot脚注部分
+-------------------------
+
+
+ 编译后：
+--------------------------------
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello jade!</title>
+  </head>
+  <body>
+    <h1>content主体部分</h1>
+
+    <h1>foot脚注部分</h1>
+  </body>
+</html>
+-------------------------------
+
+
+10.jade中写行内js或css
+
+doctype html
+html
+  head
+    style.
+    p{color:red}
+  body
+    script.
+    console.log(OK)
+
+编译后:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>p{
+    color:red;
+    }
+    </style>
+  </head>
+  <body>
+    <script>console.log(OK)</script>
+  </body>
+</html>
+```
+
 

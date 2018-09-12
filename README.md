@@ -1046,9 +1046,8 @@ html
 
 # layui
 
-```
-
 layui 官网：[https://www.layui.com/](https://www.layui.com/)
+```
 
 获得 layui 后，引入下述两个文件：
        ./layui/css/layui.css

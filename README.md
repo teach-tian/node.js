@@ -585,31 +585,7 @@ node_modules 是项目依赖的各种插件
 
 express这样的MVC框架模式，是一个Web项目的基本构成。
 -----------------------------------------------------------------------------------------
-app.js 探究
 
-补充：
-```
-全局对象
-__dirname  表示当前执行脚本所在的目录。
-—filename  表示当前执行脚本文件路径（绝对路径）
-
-path 模块
-
-var path = require("path");
-
-// 格式化路径   注意'..' 和 '.'。
-console.log(path.normalize('/test/test1//2slashes/1slash/tab/..'));
-//   /test/test1/2slashes/1slash
-
-
-// 连接路径
-console.log(path.join('/test', 'test1', '2slashes/1slash', 'tab', '..'));
-//    /test/test1/2slashes/1slash
-
-// 转换为绝对路径
-console.log(path.resolve('main.js'));
-//   /web/com/1427176256_27423/main.js
-```
 ## app.js
 
 ```
@@ -1053,7 +1029,35 @@ layui 官网：[https://www.layui.com/](https://www.layui.com/)
        ./layui/css/layui.css
        ./layui/layui.all.js
 ```
+# path
 
+
+```
+全局对象
+__dirname  表示当前执行脚本所在的目录。
+—filename  表示当前执行脚本文件路径（绝对路径）
+
+const path=require('path');
+
+var str='c:\\wamp\\www\\a.html';
+1.path.parse() 解析地址
+var obj=path.parse(str);
+
+//base      文件名部分   a.html
+//ext       扩展名      .html
+//dir       路径        c:\\wamp\\www
+//name      文件名部分   a
+2.path.normalize()    格式化路径   注意'..' 和 '.'
+
+console.log(path.normalize('/test/test1//2slashes/1slash/tab/..'));  ----------> /test/test1/2slashes/1slash
+
+3.path.join() 连接路径
+console.log(path.join('/test', 'test1', '2slashes/1slash', 'tab', '..')); --------> /test/test1/2slashes/1slash
+
+4.path.resolve()  转换为绝对路径
+console.log(path.resolve('main.js'));   ---------> /web/com/1427176256_27423/main.js  == __filename
+console.log(path.resolve());   ---------> /web/com/1427176256_27423/main.js  == __direname
+```
 # 文件上传 multer
 
 ```
@@ -1078,7 +1082,7 @@ var objMulter=multer({dest: './www/upload/'});
 server.use(objMulter.any());
 //新名字
 var newName=req.files[0].path+pathLib.parse(req.files[0].originalname).ext;
-// 设置新名字
+// 设置新名字   fs.rename(老名, 新名, function (err){})
   fs.rename(req.files[0].path, newName, function (err){
     if(err)
       res.send('上传失败');

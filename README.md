@@ -1054,4 +1054,37 @@ layui 官网：[https://www.layui.com/](https://www.layui.com/)
        ./layui/layui.all.js
 ```
 
+# 文件上传 multer
+
+```
+
+body-parser	解析post数据
+multer		  解析post文件
+
+前端文件：
+  <form action="http://localhost:8080/" method="post" enctype="multipart/form-data">
+      文件：<input type="file" name="f1" /><br>
+      <input type="submit" value="上传">
+   </form>
+
+后端文件：
+
+下载 multer模块： cnpm i multer --save
+
+const multer=require('multer');
+//指定磁盘存放路径
+var objMulter=multer({dest: './www/upload/'});
+//使用中间件
+server.use(objMulter.any());
+//新名字
+var newName=req.files[0].path+pathLib.parse(req.files[0].originalname).ext;
+// 设置新名字
+  fs.rename(req.files[0].path, newName, function (err){
+    if(err)
+      res.send('上传失败');
+    else
+      res.send('成功');
+  });
+```
+
 

@@ -543,7 +543,9 @@ db.user.find(); 查询所有  想格式化 .pretty()
 db.user.findOne();查询第一条  
 
 db.user.find({age:{$gt:20}});查询年龄大于20的  $lt  $eq   $lte
-
+db.user.find({'age':{$gt:20,$lt:30}})
+db.user.find({$or:[{'name':'lv'},{'name':'chen'}]})  $or选择器
+db.user.find({'name':{$ne:'lv'}});    $ne不等于
 -------改-------------------------------------------
 db.user.update({name:"张三"}，{$set:{age:25}})
 

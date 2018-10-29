@@ -139,6 +139,45 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```
   res.setHeader('Content-Type','text/html;charset=utf-8')
 ```
+
+### fs模块
+
+```
+
+var fs=require('fs');
+//异步读取文件  
+fs.readFile('./www/index.html',function(err,data){
+  if(!err){
+  console.log(data) ; // Buffer  对象  （二进制流）
+  console.log(data.toString()) ;  //字符串
+})
+
+// 同步读取文件
+
+var buff=fs.readFileSync('./www.index.html');
+
+//异步写入文件
+
+fs.writeFile('./www/a.txt','hello world',function(err){
+  if(!err){
+     console.log('写入成功')
+  }
+})
+
+//同步写入
+
+fs.writeFileSync('./www/a.txt','aaaaaa');
+
+```
+### 同步&异步
+
+```
+
+同步： 在没做完一件事之前，不可以做下一件事
+
+异步： 基于回调函数的，第一件事放在回调函数中执行，接着处理下一件事  （比如定时器，ajax, fs.readFile()）
+
+```
    
 ### 注册登录前端
 ```

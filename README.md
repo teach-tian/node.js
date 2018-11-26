@@ -334,7 +334,7 @@ console.log(url,urlObj)
 
 ### 模块
 
-## Node.js 提供了 exports 和 require 两个对象，其中 exports 是导出模块的方法，require 从外部获取一个模块的接口的方法
+Node.js 提供了 exports 和 require 两个对象，其中 exports 是导出模块的方法，require 从外部获取一个模块的接口的方法
 
 下面，我们创建hello.js文件，并用exports导出一个模块
 ```

@@ -400,7 +400,7 @@ hello.setName('kiry');
 
 5.发布 模块
 
-    执行 npm publish
+    执行 npm publish --access public
 
 
 6.使用

@@ -332,6 +332,44 @@ console.log(url,urlObj)
 
 ```
 
+### 模块
+
+## Node.js 提供了 exports 和 require 两个对象，其中 exports 是导出模块的方法，require 从外部获取一个模块的接口的方法
+
+下面，我们创建hello.js文件，并用exports导出一个模块
+```
+exports.world = function() {
+  console.log('Hello World');
+}
+```
+
+接下来我们创建 main.js文件，用require导入刚才定义好的模块
+
+```
+var hello = require('./hello');
+hello.world();
+
+```
+
+有时候，我们一次想导出多个方法 ,如下 ：创建 hello.js文件
+
+```
+module.exports = {
+  getName:function(name){console.log('我的名字是'+name)},
+  setName:function(name){console.log('我的名字改为'+name)}
+}
+
+```
+
+导入模块没有变，如下：创建main.js文件
+
+```
+var hello = require('./hello');
+hello.getName('tom');
+hello.setName('kiry');
+
+```
+
 
 ### npm 包发布
 

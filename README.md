@@ -134,10 +134,15 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 
    
    
-### 解决乱码问题
+### 解决中文乱码乱码问题
 
 ```
   res.setHeader('Content-Type','text/html;charset=utf-8')
+```
+
+###解决跨域问题
+```
+
 ```
 
 ### fs模块
@@ -1169,5 +1174,73 @@ var newName=req.files[0].path+pathLib.parse(req.files[0].originalname).ext;
       res.send('成功');
   });
 ```
+### JSON和JSONP
+```
+JSONP的全称是JSON with Padding，由于同源策略的限制，XmlHttpRequest只允许请求当前源（协议，域名，端口）的资源。如果要进行跨域请求，我们可以通过使用html的script标记来进行跨域请求，并在相应中返回要执行的script代码，其中可以直接使用JSON传递javascript对象。这种跨域的通讯方式成为JSONP。
+
+由此我们可以看出两者的区别：
+
+json： 一种轻量级的数据格式。
+
+jsonp：为实现跨域，而采用的一种脚本注入方法
+ ```
+### 实现
+
+我们要读取数据都是
+
+```
+var data = {'name': 'jifeng', 'company': 'taobao'};
+
+```
+
+服务器端代码
+```
+var http = require('http');
+var urllib = require('url');
+ 
+var port = 10011;
+var data = {'name': 'jifeng', 'company': 'taobao'};
+ 
+http.createServer(function(req, res){
+ var params = urllib.parse(req.url, true);
+ console.log(params);
+ if (params.query && params.query.callback) {
+ //console.log(params.query.callback);
+ var str = params.query.callback + '(' + JSON.stringify(data) + ')';//jsonp
+ res.end(str);
+ } else {
+ res.end(JSON.stringify(data));//普通的json
+ }  
+}).listen(port, function(){
+ console.log('server is listening on port ' + port); 
+})
+```
+
+游览器端代码，为方便起见，我直接用了jquery的方法
+
+```
+<html> 
+<head> 
+ <script src="http://code.jquery.com/jquery-latest.js"></script> 
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+</head> 
+<body> 
+<script type="text/javascript"> 
+function get_jsonp() { 
+ $.getJSON("http://127.0.0.1:10011?callback=?", 
+ function(data) {
+ $('#result').val('My name is: ' + data.name); 
+ }); 
+} 
+</script> 
+<a href="javascript:get_jsonp();" rel="external nofollow" >Click me</a><br /> 
+<textarea id="result" cols="50" rows="3"></textarea> 
+</body> 
+</html> 
+```
+jquery中getJSON（）方法可以参见：[http://www.w3school.com.cn/jquery/ajax_getjson.asp](http://www.w3school.com.cn/jquery/ajax_getjson.asp)
+
+
+
 
 

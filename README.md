@@ -132,7 +132,66 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 
 删除文件：del 文件名
 
-   
+### http模块---->创建服务器
+```
+        // 引入http包
+        var http = require('http');
+
+        // 创建服务
+        var server = http.createServer(function(req,res){
+            res.writeHeader(200,{'Content-type':'text/html;charset=utf8'});//设置相应头
+            // req   request    请求对象
+            // res   response   响应对象
+            res.end('<h1>node.js 主体结构</h1>');//逻辑代码  终止浏览器响应  end 会把响应的信息在浏览器body中显示
+        });
+
+        // 监听端口   选择端口  不常用端口 比如：3000 4000 8080 8090 9000
+        server.listen(4000,'localhost');
+
+        // 提示
+        console.log('服务器：localhost  端口号：4000');
+
+```
+node.js 中内置对象  req请求对象  和  res响应对象
+```
+    req 请求对象
+        请求方法    method
+        请求路径    url
+        协议版本    httpVersion
+        请求头         headers
+    res 响应对象    
+        响应码     statusCode
+        响应体     write()   
+        响应头     writeHeader(200,{'name':'value'});  //响应头信息                            
+        响应体     write()
+        结束(必加)  end()
+
+```
+常见的http协议
+```
+常见HTTP状态码(200、301、302、500等）解说
+对网站管理工作者来说有个词不陌生，HTTP状态码，它是用以表示网页服务器HTTP响应状态的3位数字代码。状态码的第一个数字代表了响应的五种状态之一。
+
+1XX系列：指定客户端应相应的某些动作，代表请求已被接受，需要继续处理。由于 HTTP/1.0 协议中没有定义任何 1xx 状态码，所以除非在某些试验条件下，服务器禁止向此类客户端发送 1xx 响应。
+2XX系列：代表请求已成功被服务器接收、理解、并接受。这系列中最常见的有200、201状态码。
+200状态码：表示请求已成功，请求所希望的响应头或数据体将随此响应返回
+201状态码：表示请求成功并且服务器创建了新的资源，且其 URI 已经随Location 头信息返回。假如需要的资源无法及时建立的话，应当返回 '202 Accepted'
+202状态码：服务器已接受请求，但尚未处理
+
+3XX系列：代表需要客户端采取进一步的操作才能完成请求，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。这系列中最常见的有301、302状态码。
+301状态码：被请求的资源已永久移动到新位置。服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。
+302状态码：请求的资源临时从不同的URI响应请求，但请求者应继续使用原有位置来进行以后的请求
+304自从上次请求后，请求的网页未修改过。服务器返回此响应时，不会返回网页内容。 如果网页自请求者上次请求后再也没有更改过，您应将服务器配置为返回此响应(称为 If-Modified-Since HTTP 标头)。
+4XX系列：表示请求错误。代表了客户端看起来可能发生了错误，妨碍了服务器的处理。常见有：401、404状态码。
+401状态码：请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。
+403状态码：服务器已经理解请求，但是拒绝执行它。与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。
+404状态码：请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用410状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。
+5xx系列：代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。常见有500、503状态码。
+500状态码：服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器的程序码出错时出现。
+503状态码：由于临时的服务器维护或者过载，服务器当前无法处理请求。通常，这个是暂时状态，一段时间会恢复
+了解基本SEO状态码，是SEO优化人员必备知识。HTTP状态码是服务器和客户端之间交流信息的语言。通过查看网站日志的HTTP码，我们可以清楚查看搜索引擎在网站的爬取情况。
+
+```
    
 ### 解决中文乱码乱码问题
 
@@ -140,9 +199,9 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
   res.setHeader('Content-Type','text/html;charset=utf-8')
 ```
 
-###解决跨域问题
+### 解决跨域问题
 ```
-
+  res.setHeader('Access-Control-Allow-Origin': '*')//允许 任何跨域请求
 ```
 
 ### fs模块
@@ -177,10 +236,9 @@ fs.writeFileSync('./www/a.txt','aaaaaa');
 ### 同步&异步
 
 ```
-
 同步： 在没做完一件事之前，不可以做下一件事
 
-异步： 基于回调函数的，第一件事放在回调函数中执行，接着处理下一件事  （比如定时器，ajax, fs.readFile()）
+异步： 基于回调函数的，第一件事放在回调函数（内存）中运行，接着处理下一件事  （比如定时器，ajax, fs.readFile()）
 
 ```
    
@@ -515,7 +573,113 @@ hello.setName('kiry');
       了解持久连接
 
       有时候我们获取一个HTML页面，在对浏览器对HTML解析的过程中，如果发现额外的URL需要获取的内容，会再次发起HTTP请求去服务器获取，比如样式文件，图片。许多个HTTP请求，只依靠一个TCP连接就够了，这就是所谓的持久连接。也是所谓的一次HTTP请求完成。
-      
+
+
+# 跨域请求
+node跨域请求，主要介绍了两种方法，一种是jsonp，另一种res.wirteHead
+
+下面res.wirteHead跨域案例
+node部分
+```
+var http = require('http')
+var url = require('url')
+var querystring = require('querystring')
+ 
+var port = 9000
+var jsonData = { 'name': 'xiaohong', 'job': 'daboss' }
+http.createServer(function (req, res) {
+  // var pathStr = url.parse(req.url)
+    res.writeHead(200, {
+    'Content-Type': 'application/json;charset=utf-8',
+    'Access-Control-Allow-Credentials': true,
+    'Access-Control-Allow-Origin': '*'
+  })
+  var type = req.method;
+  if (type == 'GET') {
+    
+    res.end(JSON.stringify(jsonData))
+  } else if (type == 'POST') {
+    var str = '';
+    req.on('data',function(chunk){
+      str += chunk;
+    })
+     
+    req.on('end',function(){
+      var data = querystring.parse(str)
+      console.log(data)
+      if(data.name == "" || data.job == ""){
+        res.end(JSON.stringify({'success':true,msg:'填写有误'}))
+      }else{
+        res.end(JSON.stringify({'success':false,msg:'添加成功'}))
+      }
+ 
+    })
+  }
+ 
+}).listen(port, function () {
+  console.log('server is runing at port ' + port)
+})
+
+```
+
+html 部分
+```
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <a class="click" href="javascript:get_jsonp()" rel="external nofollow" >click me</a>
+  <p class="result"></p>
+  <label>姓名:</label>
+  <input class="name" type="text" />
+  <label>职位：</label>
+  <input class="job" type="text">
+  <a class="add" href = "javascript:add()">添加</a>
+  <p class="msg"></p>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script>
+    function get_jsonp() {
+      $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: 'http://localhost:9000',
+        success: function (data) {
+          $('.result').html('my name is ' + data.name)
+        },
+        error: function (err) {
+          $('.result').html('出错了 ' + err.status)
+        }
+      })
+    }
+    function add(){
+      $.ajax({
+        type:'post',
+        url:'http://localhost:9000',
+        // dataType:'json',
+        data:{
+          'name':$(".name").val(),
+          'job':$(".job").val()
+        },
+        success:function(data){
+            console.log(data);
+          $('.msg').html(data.msg)
+        },
+        error:function(err){
+           
+           $('.msg').html('出错了'+err.status)
+        }
+      })
+    }
+  </script>
+</body>
+</html>
+```
 # mongodb 安装      
       
       

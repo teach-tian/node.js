@@ -576,9 +576,11 @@ hello.setName('kiry');
 
 
 # 跨域请求
-node跨域请求，主要介绍了两种方法，一种是jsonp，另一种res.wirteHead
+node跨域请求，主要介绍了两种方法，一种是jsonp，另一种CORS(CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource sharing）。
 
-下面res.wirteHead跨域案例
+它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。)
+
+下面cors跨域案例
 node部分
 ```
 var http = require('http')

@@ -85,7 +85,7 @@
      然后按下 window+R 键 在运行栏目输入：services.msc 找到名为“MongoDB”的服务右键启动
      
      ```
-     mongod --config "c:\mongodb\db\mongo.config" --install
+     mongod --config "c:\mongodb\db\mongo.conf" --install
      ```
      
       启动服务方式二

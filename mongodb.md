@@ -81,10 +81,13 @@
     mongod --config c:/mongodb/etc/mongo.conf       启动后无任何反应
 ```
    7.以Windows服务器运行MongoDB
-     以管理员方式打开CMD窗口，运行如下命令安装MongoDB服务，然后按下 window+R 键 在运行栏目输入：services.msc 找到名为“MongoDB”的服务右键启动
+     以管理员方式打开CMD窗口，运行如下命令安装MongoDB服务，
+     然后按下 window+R 键 在运行栏目输入：services.msc 找到名为“MongoDB”的服务右键启动
+     
      ```
      mongod --config "c:\mongodb\db\mongo.config" --install
      ```
+     
       启动服务方式二
       在CMD窗口中运行如下命令，也可以在可以在 “控制面板\所有控制面板项\管理工具\服务”
      ```

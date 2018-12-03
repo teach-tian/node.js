@@ -5,7 +5,9 @@
 1.安装：[下载mogodb](https://www.mongodb.com/download-center#community)
 
 > 添加环境变量
+
 ```
+
 在环境变量PATH中加入 “C:\Program Files\MongoDB\Server\3.4\bin>“
 
 ```
@@ -160,9 +162,12 @@ db.user.update({name:"张三"}，{$set:{'class.age':25}})
 
 ### mongoose 
 
-NodeJS操作MongoDB,要使用MongoDB驱动,MongoDB驱动实际上就是为应用程序提供的一个接口，不同的语言对应不同的驱动，NodeJS驱动不能应用在其他后端语言中
+mongoose是NodeJS操作MongoDB数据库的中间层（中间件）NodeJS驱动不能应用在其他后端语言中
 
-首先，安装mongodb
+首先，安装mongoose
+```
+cnpm install mongoose --save
+
 ```
 
-```
+Mongooose中，有三个比较重要的概念，分别是Schema、Model、Entity

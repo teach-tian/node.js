@@ -242,7 +242,7 @@ var UserSchema = new Schema(
 下面我们创建一个model类：
 ```
 var mongoose=require('mongoose');
-var myschema=require('../schema/user');
+var myschema=require('../schema/schema');
 var MyModel=mongoose.model('MyModel',myschema);
 module.exports=MyModel;
 
@@ -258,7 +258,7 @@ Mongoose会将集合名称设置为模型名称的小写版。如果名称的最
   
 请看下例:
 ```
-var MyModel=require('./models/user');
+var MyModel=require('./models/model');
 var doc1 = new MyModel({username: 'tom' });
 doc1.save(function (err,doc) {
         // { __v: 0, username: 'tom',_id: 5970daba61162662b45a24a1 }
@@ -267,6 +267,59 @@ doc1.save(function (err,doc) {
 ```
 通过new Model1()创建的文档doc1，必须通过save()方法，才能将创建的文档保存到数据库的集合中 
 回调函数是可选项，第一个参数为err（错误对象），第二个参数为保存的文档对象
+
+### 文档新增
+
+三种方式：save()、create()、insertMany()
+
+
+```
+var MyModel=require('./models/model')
+//方法一
+ new  MyModel({username:'tom',txt:'hello world'}).save(function(err,doc){
+            //[ { _id: 59720bc0d2b1125cbcd60b3f, username: 'tom', txt: 'hello world', __v: 0 } ]
+            console.log(doc);        
+        });      
+//方法二
+   MyModel.create({username:"xiaowang"},{username:"xiaoli"},function(err,doc1,doc2){
+            //{ __v: 0, username: 'xiaowang', _id: 59720d83ad8a953f5cd04664 }
+            console.log(doc1); 
+            //{ __v: 0, username: 'xiaoli', _id: 59720d83ad8a953f5cd04665 }
+            console.log(doc2); 
+        });    
+ //方法三
+  temp.insertMany([{username:"a"},{username:"b"}],function(err,docs){
+            //[ { __v: 0, username: 'a', _id: 59720ea1bbf5792af824b30c },
+            //{ __v: 0, username: 'b', _id: 59720ea1bbf5792af824b30d } ]
+            console.log(docs); //数组
+        });       
+
+```
+
+### 文档查询
+三种方式：find()、findById()、findOne()
+
+> find() 四个参数都是可选的
+第一个参数表示查询条件，第二个参数用于控制返回的字段，第三个参数用于配置查询参数，第四个参数是回调函数，回调函数的形式为function(err,docs){}
+```
+//查找 年龄大于18 、只返回age字段 、跳过前两条数据 
+temp.find({age:{$gte:18}},{age:1,name:0,_id:0},{skip:2},function(err,docs){
+            //find()查询  docs一定是数组
+            //[ { age: 27 },
+            //{ age: 18 },
+            //{ age: 30 }]
+            console.log(docs);
+        })
+```
+如果使用第三个参数，前两个参数如果没有值，需要设置为null
+```
+ temp.find(null,null,{skip:2},function(err,docs){
+            //[ { _id: 5971f93be6f98ec60e3dc86e, name: 'huo', age: 30 },
+            //{ _id: 5971f93be6f98ec60e3dc86f, name: 'li', age: 12 } ]
+            console.log(docs);
+        })
+```
+> findById()
   
   
   

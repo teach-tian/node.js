@@ -162,6 +162,8 @@ db.user.update({name:"张三"}，{$set:{'class.age':25}})
 
 ### mongoose 
 
+
+
 mongoose是NodeJS操作MongoDB数据库的中间层（中间件）NodeJS驱动不能应用在其他后端语言中
 
 首先，安装mongoose
@@ -170,4 +172,143 @@ cnpm install mongoose --save
 
 ```
 
+连接数据库
+
+```
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost:27017/test", function(err) {
+    if(err){
+        console.log('连接失败');
+    }else{
+        console.log('连接成功');
+    }
+});
+```
+
 Mongooose中，有三个比较重要的概念，分别是Schema、Model、Entity
+
+
+### Schema
+
+Schema主要用于定义MongoDB中集合Collection里文档document的结构, 如下生创建schema：
+
+```
+var mongoose = require('mongoose');
+module.exports = new mongoose.Schema({
+    username: String,
+    txt: String
+});
+
+```
+定义Schema非常简单，指定字段名和类型即可，支持的类型包括以下8种
+
+```
+String      字符串
+Number      数字    
+Date        日期
+Buffer      二进制
+Boolean     布尔值
+Mixed       混合类型
+ObjectId    对象ID    
+Array       数组
+```
+注意：创建Schema对象时，声明字段类型有两种方法，一种是首字母大写的字段类型，另一种是引号包含的小写字段类型
+
+```
+var mySchema = new Schema({title:String, author:String});
+//或者 
+var mySchema = new Schema({title:'string', author:'string'});
+```
+#### timestamps(时间戳)
+
+在schema中设置timestamps为true，schema映射的文档document会自动添加createdAt和updatedAt这两个字段，代表创建时间和更新时间
+```
+
+var UserSchema = new Schema(
+  {...},
+  { timestamps: true }
+);
+
+```
+
+#### _id
+
+每一个文档document都会被mongoose添加一个不重复的_id，_id的数据类型不是字符串，而是ObjectID类型。如果在查询语句中要使用_id，则需要使用findById语句，而不能使用find或findOne语句
+
+### Model （模型类）
+
+模型Model是根据Schema编译出的构造器，或者称为类，通过Model可以实例化出文档对象document
+文档document的创建和检索都需要通过模型Model来处理
+下面我们创建一个model类：
+```
+var mongoose=require('mongoose');
+var myschema=require('../schema/user');
+var MyModel=mongoose.model('MyModel',myschema);
+module.exports=MyModel;
+
+```
+使用mongoose下的model()方法，将Schema编译为Model。model()方法的第一个参数是模型名称
+
+注意：一定要将model()方法的第一个参数和其返回值设置为相同的值，否则会出现不可预知的结果
+
+Mongoose会将集合名称设置为模型名称的小写版。如果名称的最后一个字符是字母，则会变成复数；如果名称的最后一个字符是数字，则不变；如果模型名称为"MyModel"，则集合名称为"mymodels"；如果模型名称为"Model1"，则集合名称为"model1"
+  
+### entity(实体)
+通过对模型MyModel使用new方法，实例化出文档document对象
+  
+请看下例:
+```
+var MyModel=require('./models/user');
+var doc1 = new MyModel({username: 'tom' });
+doc1.save(function (err,doc) {
+        // { __v: 0, username: 'tom',_id: 5970daba61162662b45a24a1 }
+          console.log(doc);
+        })
+```
+通过new Model1()创建的文档doc1，必须通过save()方法，才能将创建的文档保存到数据库的集合中 
+回调函数是可选项，第一个参数为err（错误对象），第二个参数为保存的文档对象
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

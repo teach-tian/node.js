@@ -320,14 +320,114 @@ temp.find({age:{$gte:18}},{age:1,name:0,_id:0},{skip:2},function(err,docs){
         })
 ```
 > findById()
+```
+  temp.findById("5c0881fca55c161d28da8376",function(err,doc){
+                //{ _id: 5971f93be6f98ec60e3dc86c, name: 'huochai', age: 27 }
+                console.log(doc);
+       })    
+  //或者下面
+   temp.findById("5c0881fca55c161d28da8376").exec(function(err,doc){
+                //{ _id: 5971f93be6f98ec60e3dc86c, name: 'huochai', age: 27 }
+                console.log(doc);
+       })    
+       
+       
+```
+
+> findOne()
+
+例：
+```
+找出age>20的文档中的第一个文档，且输出包含name字段在内的最短字段   lean为true表示输出最少字段（只包含_id）
+temp.findOne({age:{$gt : 20}},"name",{lean:true},function(err,doc){
+    //{ _id: 5971f93be6f98ec60e3dc86c, name: 'huochai' }
+    console.log(doc);
+})   
+temp.findOne({age:{$gt : 20}},"name").lean().exec(function(err,doc){
+    //{ _id: 5971f93be6f98ec60e3dc86c, name: 'huochai' }
+    console.log(doc);
+})
+```
+### 文档更新
+
+```
+update()
+updateMany()
+find() + save()
+updateOne()
+findOne() + save()
+findByIdAndUpdate()
+fingOneAndUpdate()
+```
+> update()
+第一个参数conditions为查询条件，第二个参数doc为需要修改的数据，第三个参数options为控制选项，第四个参数是回调函数
+```
+Model.update(conditions, doc, [options], [callback])
+```
+options
+```
+upsert (boolean)： 默认为false。如果不存在则创建新记录。
+multi (boolean)： 默认为false。是否更新多个查询记录。
+```
+使用update()方法查询age大于20的数据，并将其年龄更改为40岁
+```
+//只改一条数据  如果查不到，则什么也不干
+  temp.update({age:{$gte:20}},{age:40},function(err,raw){
+            //{ n: 1, nModified: 1, ok: 1 }
+            console.log(raw);
+        })
+  // 所有大于20的数据 全改  
+   temp.update({age:{$gte:20}},{age:40},{multi:true},function(err,raw){
+            //{ n: 1, nModified: 1, ok: 1 }
+            console.log(raw);
+        })
+   // 将年龄为100岁的那条信息 name改为 hundred    upsert参数为true，若没有符合查询条件的文档，mongo将会综合第一第二个参数向集合插入一个新的文档   
+   temp.update({age:100},{name: "hundred"},{upsert:true},function(err,raw){
+    //{ n: 1, nModified: 0,upserted: [ { index: 0, _id: 5972c202d46b621fca7fc8c7 } ], ok: 1 }
+    console.log(raw);
+})
+```
+
+> find() + save()
+　如果需要更新的操作比较复杂，可以使用find()+save()方法来处理，比如找到年龄小于30岁的数据，名字后面添加'30'字符
+ ```
+ temp.find({age:{$lt:20}},function(err,docs){
+    //[ { _id: 5971f93be6f98ec60e3dc86d, name: 'wang', age: 10 },
+    //{ _id: 5971f93be6f98ec60e3dc86f, name: 'li', age: 12 }]
+    console.log(docs);
+    docs.forEach(function(item,index,arr){
+        item.name += '30';
+        item.save();
+    })
+    //[ { _id: 5971f93be6f98ec60e3dc86d, name: 'wang30', age: 10 },
+    // { _id: 5971f93be6f98ec60e3dc86f, name: 'li30', age: 12 }]
+    console.log(docs);
+});
+ ```
+ > updateOne()
+ 　updateOne()方法只能更新找到的第一条数据，即使设置{multi:true}也无法同时更新多个文档
   
+  > findOne() + save()
+  如果需要更新的操作比较复杂，可以使用findOne()+save()方法来处理
+  > findOneAndUpdate()
   
+  fineOneAndUpdate()方法的第四个参数回调函数的形式如下function(err,doc){}
+  ```
+  Model.findOneAndUpdate([conditions], [update], [options], [callback])
+  ```
+  > findByIdAndUpdate
+   fineByIdAndUpdate()方法的第四个参数回调函数的形式如下function(err,doc){}
+  ```
+  Model.findOneAndUpdate([conditions], [update], [options], [callback])
+  ```
+  ### 文档删除
+  有三种方法用于文档删除
+  ```
+  remove()
+  findOneAndRemove()
+  findByIdAndRemove() 
   
-  
-  
-  
-  
-  
+  ```
   
   
   

@@ -302,12 +302,12 @@ var MyModel=require('./models/model')
 > find() 四个参数都是可选的
 第一个参数表示查询条件，第二个参数用于控制返回的字段，第三个参数用于配置查询参数，第四个参数是回调函数，回调函数的形式为function(err,docs){}
 ```
-//查找 年龄大于18 、只返回age字段 、跳过前两条数据 
+//查找 年龄大于18 、只返回age字段 、跳过前两条数据  
 temp.find({age:{$gte:18}},{age:1,name:0,_id:0},{skip:2},function(err,docs){
             //find()查询  docs一定是数组
-            //[ { age: 27 },
+            //[ { age: 27},
             //{ age: 18 },
-            //{ age: 30 }]
+            //{ age: 30}]
             console.log(docs);
         })
 ```

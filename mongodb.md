@@ -420,14 +420,81 @@ multi (boolean)： 默认为false。是否更新多个查询记录。
   ```
   Model.findOneAndUpdate([conditions], [update], [options], [callback])
   ```
-  ### 文档删除
-  有三种方法用于文档删除
-  ```
-  remove()
-  findOneAndRemove()
-  findByIdAndRemove() 
-  
-  ```
+### 文档删除
+有三种方法用于文档删除
+```
+remove()
+findOneAndRemove()
+findByIdAndRemove() 
+
+```
+> remove()
+remove有两种形式，一种是Model的remove()方法，一种是文档的remove()方法
+Model的remove()方法:  删除name中为张三
+```
+temp.remove({name:'张三'},function(err){})
+```
+[注意]remove()方法中的回调函数不能省略，否则数据不会被删除。当然，可以使用exec()方法来简写
+```
+当然，可以使用exec()方法来简写
+
+```
+文档的remove()方法 删除name中为张三
+```
+temp.find({name:'张三'},function(err,doc){
+  doc.forEach(function(item,index,arr){
+      item.remove(function(err,doc){
+          //{ _id: 5971f93be6f98ec60e3dc86c, name: 'huochai', age: 30 }
+          //{ _id: 5971f93be6f98ec60e3dc86e, name: 'huo', age: 60 }
+          console.log(doc);
+      })
+  })
+})
+
+```
+> findOneAndRemove()
+model的remove()会删除符合条件的所有数据，如果只删除符合条件的第一条数据，则可以使用model的findOneAndRemove()方法
+```
+Model.findOneAndRemove(conditions, [options], [callback])
+```
+现在删除第一个年龄小于20的数据
+```
+temp.findOneAndRemove({age:{$lt:20}},function(err,doc){
+  //{ _id: 5972d3f3e6f98ec60e3dc873, name: 'wang', age: 18 }
+  console.log(doc);
+})
+```
+与model的remove()方法相同，回调函数不能省略，否则数据不会被删除。当然，可以使用exec()方法来简写
+```
+temp.findOneAndRemove({age:{$lt:20}}).exec()
+```
+> findByIdAndRemove()
+```
+Model.findByIdAndRemove(id, [options], [callback])
+```
+删除第0个元素
+```
+
+var aIDArr = [];
+temp.find(function(err,docs){
+  docs.forEach(function(item,index,arr){
+      aIDArr.push(item._id);
+  })
+  temp.findByIdAndRemove(aIDArr[0],function(err,doc){
+      //{ _id: 5972d754e6f98ec60e3dc882, name: 'huochai', age: 27 }
+      console.log(doc);
+  })            
+})
+
+//该方法也不能省略回调函数，否则数据不会被删除。当然，可以使用exec()方法来简写代码
+var aIDArr = [];
+temp.find(function(err,docs){
+  docs.forEach(function(item,index,arr){
+      aIDArr.push(item._id);
+  })
+  temp.findByIdAndRemove(aIDArr[0]).exec()            
+})
+```
   
   
   

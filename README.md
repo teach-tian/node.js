@@ -1,8 +1,12 @@
+# node安装
+
+node 下载地址[http://nodejs.cn/](http://nodejs.cn/)
+
 # NVM的安装
 
 ## nvm是什么？
 
-nvm 是node版本管理工具 （学习node，首先要安装node的环境，nvm是一款工具，使用这款工具可以很方便的下载所需版本的node文件以及npm，十分的方便。）
+nvm 是node版本管理工具 （nvm是一款工具，使用这款工具可以很方便的下载所需版本的node，十分的方便。）
 
 ## windows下的安装：
 
@@ -20,40 +24,22 @@ windows下的离线安装：
 * nvm安装的node路径默认为: C://ProgramFile/nodejs （其实是个快捷方式） 
 * nvm安装多个版本的node，原理是替换C://ProgramFile/nodejs中的node.exe
 
-## 安装完成以后需要进行配置
 
-```
-
-这两行代码就是链接淘宝镜像，在下载node和npm速度会快很多（不用去国外的github上下了）
-/**
-*node下载源
-*/
-nvm node_mirror https://npm.taobao.org/mirrors/node/
-/**
-*npm下载源
-*/
-nvm npm_mirror  https://npm.taobao.org/mirrors/npm/
-
-```
 
 
 ## windows下nvm的命令([]中的参数可有可无)：
 
 
 ```
-nvm arch                         查看当前系统的位数和当前nodejs的位数
-nvm install <version> [arch]     安装制定版本的node 并且可以指定平台 version 版本号  arch 平台
 nvm list [available]         
   - nvm list   查看已经安装的版本
-  - nvm list installed 查看已经安装的版本
   - nvm list available 查看网络可以安装的版本
 nvm version         // 查看nvm版本
-nvm install 4.6.2   // 安装node4.6.2版本（附带安装npm）
+nvm install 4.6.2   // 安装node4.6.2版本
 nvm uninstall 4.6.2 // 卸载node4.6.2版本
 nvm list            // 查看node版本
 nvm use 4.6.2       // 将node版本切换到4.6.2版本
-nvm root　　　　     // 查看nvm安装路径 
-nvm install latest  //下载最新的node版本和与之对应的npm版本
+nvm install latest  //下载最新的node版本
 ```
 
 
@@ -86,7 +72,7 @@ node_mirror: https://npm.taobao.org/mirrors/node/
 npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```
 
-## Linux 命令：
+## Linux 命令 (苹果系统)：
 ```
 1.	ls 查看文件/目录
 2.	pwd  显示当前的工作目录 

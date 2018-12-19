@@ -153,9 +153,8 @@ node.js 中内置对象  req请求对象  和  res响应对象
         协议版本    httpVersion
         请求头         headers
     res 响应对象    
-        响应码     statusCode
-        响应体     write()   
-        响应头     writeHeader(200,{'name':'value'});  //响应头信息                            
+      
+        响应体     write()                            
         响应体     write()
         结束(必加)  end()
 

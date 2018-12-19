@@ -102,6 +102,10 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
    
 ### windows常用新建文件命令：
 
+dir 查看当前路径下有哪些文件（或者文件夹）
+
+cd 路径切换 （cd .. 返回上一级） （d: 盘符跳转）
+
 创建文件夹：md 文件夹名
 
 创建空的文件：type nul>文件名

@@ -162,6 +162,7 @@ node.js 中内置对象  req请求对象  和  res响应对象
 常见的http协议
 ```
 常见HTTP状态码(200、301、302、500等）解说
+
 对网站管理工作者来说有个词不陌生，HTTP状态码，它是用以表示网页服务器HTTP响应状态的3位数字代码。状态码的第一个数字代表了响应的五种状态之一。
 
 1XX系列：指定客户端应相应的某些动作，代表请求已被接受，需要继续处理。由于 HTTP/1.0 协议中没有定义任何 1xx 状态码，所以除非在某些试验条件下，服务器禁止向此类客户端发送 1xx 响应。
@@ -467,62 +468,64 @@ hello.setName('kiry');
       首先了解一次完整的HTTP请求到响应的过程需要的步骤
 
       1. 域名解析 
-      2. 发起TCP的3次握手 
-      3. 建立TCP连接后发起http请求 
-      4. 服务器端响应http请求，浏览器得到html代码 
+      2. 建立TCP连接
+      3.浏览器发送http请求 
+      4. 服务器端响应http请求 ，给浏览器发送 html资源 
       5. 浏览器解析html代码，并请求html代码中的资源 
       6. 浏览器对页面进行渲染呈现给用户
+      
+      名词解释：
       1.域名解析
       就是将网站名称转变成IP地址：localhost-->127.0.0.1
       DNS域名解析等等可以实现这种功能
-      2.发起TCP的3次握手
-      在客户机和服务器之间建立正常的TCP网络连接时：
-
-      客户机首先发出一个SYN消息，
-
-      服务器使用SYN+ACK应答表示接收到了这个消息，
-
-      最后客户机再以ACK消息响应。
-
-      这样在客户机和服务器之间才能建立起可靠的TCP连接，数据才可以在客户机和服务器之间传递。
-      下面一段内容引自一次完整的HTTP事务是怎样一个过程？
-
-      拿到域名对应的IP地址之后，User-Agent（一般是指浏览器）会以一个随机端口（1024 < 端口 < 65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求（原始的http请求经过TCP/IP4层模型的层层封包）到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序（本文就以Nginx为例），最终建立了TCP/IP的连接。
+ 
+      2.发起HTTP请求(HTTP Request)---->  请求报文
       
-      3.发起HTTP请求(HTTP Request)
-      所谓的HTTP请求，也就是Web客户端向Web服务器发送信息，这个信息由如下三部分组成：
+      所谓的HTTP请求，也就是Web客户端向Web服务器发送信息，这个请求是由用户发起的，但是浏览器会根据http协议整理成固定格式后发送服务器。
+      一个HTTP请求报文由四部分组成：
+      
+      ```
+      ＜request-line＞ 请求行
+      ＜headers＞ 请求头
+      ＜blank line＞ 空格
+      ＜request-body＞ 请求数据
+      ```
 
-      （1）请求行
+      请求行
 
       例如：GET www.cnblogs.com HTTP/1.1
-      请求行写法是固定的，由三部分组成，
+      请求行写法是固定的，由三部分组成 : 请求方式 ， url,  http协议版本号
 
-      第一部分是请求方法：
+      请求头
 
-      除了常见的只有Get和Post方法，实际上HTTP请求方法还有很多，比如： PUT方法，DELETE方法，HEAD方法，CONNECT方法，TRACE方法
-
-      第二部分是请求网址，
-
-      第三部分是HTTP版本。
-      （2）HTTP头
-
-      HTTP头在HTTP请求可以是3种HTTP头：1. 请求头(request header)  2. 普通头(general header)  3. 实体头(entity header)
-
+      请求头在HTTP请求可以是3种HTTP头：1. 请求头(request header)  2. 普通头(general header)  3. 实体头(entity header)
       通常来说，由于Get请求往往不包含内容实体，因此也不会有实体头。
-      （3）内容
+      
+      请求空行
+      最后一个请求头之后是一个空行，发送回车符和换行符，通知服务器以下不再有请求头。
+      
+      请求内容
 
       只在POST请求中存在，因为GET请求并不包含任何实体
-      4.服务器端HTTP响应(HTTP Response)请求
-      当Web服务器收到HTTP请求后，会根据请求的信息做某些处理(这些处理可能仅仅是静态的返回页，或是包含Asp.net, PHP, Jsp等语言进行处理后返回)，相应的返回一个HTTP响应。HTTP响应在结构上很类似于HTTP请求，也是由三部分组成，分别为:
+       
+       
+      4.服务器端HTTP响应(HTTP Response)请求 -----> 响应报文
+      当Web服务器收到HTTP请求后，会根据请求的信息做某些处理(这些处理可能仅仅是静态的返回页，或是服务器语言处理后返回)，相应的返回一个HTTP响应。HTTP响应在结构上很类似于HTTP请求，也是由四部分组成，分别为:
+      
+      ```
+      
+      ＜status-line＞    状态行
+     ＜headers＞         响应头
+     ＜blank line＞      响应空格
+     ＜response-body＞   响应正文
+      
+      ```
 
       1.状态行
 
       例如：HTTP/1.1 200 OK
 
-      第一部分是HTTP版本
-
-      第二部分是响应状态码
-      第三部分是状态码的描述
+      分是HTTP版本、响应状态码、状态码的描述
 
           信息类 (100-199)
           响应成功 (200-299)
@@ -546,27 +549,8 @@ hello.setName('kiry');
       3.返回内容
 
       HTTP响应内容就是HTTP请求所请求的信息。这个信息可以是一个HTML，也可以是一个图片。响应的数据格式通过Content-Type字段来获得：Content-Type：image/png；或者我们熟悉的Content-Type：text/html
-      下面是一些常见的Content-Type字段的值。
-
-          text/plain
-          text/html
-          text/css
-          image/jpeg
-          image/png
-          image/svg+xml
-          audio/mp4
-          video/mp4
-          application/javascript
-          application/pdf
-          application/zip
-          application/atom+xml
-
-      5.浏览器解析html代码，并请求html代码中的资源
-      了解持久连接
-
-      有时候我们获取一个HTML页面，在对浏览器对HTML解析的过程中，如果发现额外的URL需要获取的内容，会再次发起HTTP请求去服务器获取，比如样式文件，图片。许多个HTTP请求，只依靠一个TCP连接就够了，这就是所谓的持久连接。也是所谓的一次HTTP请求完成。
-
-
+     
+ 
 # 跨域请求
 node跨域请求，主要介绍了两种方法，一种是jsonp，另一种CORS(CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource sharing）。
 

@@ -1,3 +1,10 @@
+
+# node 概念
+
+1. Node.js 就是运行在服务端的 JavaScript
+2. Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境(平台)
+3. Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。
+
 # node安装
 
 node 下载地址[http://nodejs.cn/](http://nodejs.cn/)
@@ -6,7 +13,7 @@ node 下载地址[http://nodejs.cn/](http://nodejs.cn/)
 
 ## nvm是什么？
 
-nvm 是node版本管理工具 （nvm是一款工具，使用这款工具可以很方便的下载所需版本的node，十分的方便。）
+nvm 是node版本管理工具 （nvm是一款工具，使用这款工具可以很方便的下载，切换，卸载指定版本的node，十分的方便。）
 
 ## windows下的安装：
 

@@ -9,6 +9,53 @@
 
 node 下载地址[http://nodejs.cn/](http://nodejs.cn/)
 
+### Node.js REPL(交互式解释器) 
+```
+打开终端
+
+输入:
+node -v   检测node版本
+简单的表达式运算：
+$ node
+> 1 +4
+5
+> 5 / 2
+2.5
+> 3 * 6
+18
+> 4 - 1
+3
+> 1 + ( 2 * 3 ) - 4
+3
+>
+使用变量：
+$ node
+> x = 10
+10
+> var y = 10
+undefined
+> x + y
+20
+> console.log("Hello World")
+Hello World
+undefined
+多行表达式：
+$ node
+> var x = 0
+undefined
+> do {
+... x++;
+... console.log("x: " + x);
+... } while ( x < 5 );
+x: 1
+x: 2
+x: 3
+x: 4
+x: 5
+undefined
+>
+```
+#### ctrl + c 按下两次 - 退出 Node REPL。
 # NVM的安装
 
 ## nvm是什么？

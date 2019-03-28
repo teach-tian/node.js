@@ -79,6 +79,23 @@ node_mirror: https://npm.taobao.org/mirrors/node/
 npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```
 
+## php vs node
+```
+
+  可以这样理解 对应一个客户的一个页面请求处理的php 是单线程处理的, 这样一来就可以自上而下的去编辑/理解代码中的业务逻辑了, 但是 php 可以同时开很多线程来处理 很多用户请求的同一个PHP , 所以 php 也可以看成是"多线程"的。
+
+ 每个PHP文件的执行是单线程的，但是，服务器（apache/nigix/php-fpm）是多线程的。每次对某个PHP文件的访问服务器都会创建一个新的进程/线程，用来执行对应的PHP文件。
+ 
+ 也就是说对于一个请求来说PHP是单线程的，但是多个请求间是并发的。
+
+  所以准确的说php是单线程的，php服务器集成环境是“多线程”的，
+
+ 综上所述：
+ php是一门编程语言，node 是基于 Chrome V8 引擎的 JavaScript运行环境。
+ php 服务器 是多线程， node服务器 是单线程
+ 
+```
+
 ## Linux 命令 (苹果系统)：
 ```
 1.	ls 查看文件/目录
@@ -196,7 +213,7 @@ node.js 中内置对象  req请求对象  和  res响应对象
 ### 解决中文乱码乱码问题
 
 ```
-  res.setHeader('Content-Type','text/html;charset=utf-8')
+  res.setHeader('Content-Type','text/html,charset=utf-8')
 ```
 
 ### 解决跨域问题

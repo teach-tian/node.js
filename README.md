@@ -172,8 +172,9 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
    ```
    
 ### windows常用新建文件命令：
+cls 清除历史
 
-dir 查看当前路径下有哪些文件（或者文件夹）
+dir 查看当前路径下有哪些文件（或者文件夹） ls
 
 cd 路径切换 （cd .. 返回上一级） （d: 盘符跳转）
 

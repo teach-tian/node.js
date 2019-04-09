@@ -828,6 +828,45 @@ app.post('/api',function(req,res,next){
 })
 
 ```
+# ejs语法
+```
+变量的声明
+    <% title='hello world' %>
+变量的使用
+   <%= title %>
+循环语句  arr:['张三','李四',"王五","小明"]
+ <% for(var item in arr){ %>
+      <li> 
+         姓名：<%= arr[item] %>
+      </li>
+    <% } %>
+循环语句 list=[
+         {title:'昌平马池口大雨',authour:'于成龙',times:'2019-4-9'},
+         {title:'吉利大学阅兵准备',authour:'蒋伟',times:'2019-4-1'},
+         {title:'积云教育就业喜报',authour:'耿丽娜',times:'2019-3-8'},
+         {title:'昌平马池口大雨',authour:'于成龙',times:'2019-4-9'},
+        ]
+    <% for(var item in list){ %>
+         <div style="border:1px solid black">
+             <h3>
+                <%= list[item].title %>
+             </h3>
+             <p>作者：<%= list[item].authour %> </p>
+             <p>时间：<%= list[item].times %> </p>
+         </div>
+      <% } %>
+  条件判断语句
+    <% on=true %>
+
+    <% if(!on){ %>
+        <button>开/注册</button>
+    <% }else{ %>
+        <button>关/登录</button>
+    <% } %>
+    
+  <!-- 导入外部 模块 -->
+    <% include ./footer.ejs %>
+```
 
 
 # bodyParser 中间件的封装

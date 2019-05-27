@@ -226,7 +226,7 @@ node.js 中内置对象  req请求对象  和  res响应对象
         请求头         headers
     res 响应对象    
       
-        响应体     write()                            
+                         
         响应体     write()
         结束(必加)  end()
 

@@ -4,7 +4,7 @@
 
 1. Node.js 就是运行在服务端的 JavaScript
 2. Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境(平台)
-3. Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。
+3. Node.js是一个基于事件驱动的I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。
 
 # node安装
 

@@ -56,3 +56,9 @@ x: 5
 undefined
 >
 ```
+
+### 退出REPL
+
+```
+control + cc
+```

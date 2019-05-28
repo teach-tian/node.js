@@ -135,4 +135,12 @@ fs.writeFile('./www/a.txt','hello world',function(err){
 //同步写入
 
 fs.writeFileSync('./www/a.txt','aaaaaa');
+
+//追加
+fs.appendFile('./data/b.txt',data,'utf8',function(err, ret) {
+                if(err) {
+                        throw err
+                }
+                console.log('success')
+            }
 ```

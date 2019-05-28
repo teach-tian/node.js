@@ -144,3 +144,50 @@ fs.appendFile('./data/b.txt',data,'utf8',function(err, ret) {
                 console.log('success')
             }
 ```
+
+###  服务器模板
+```
+var http=require('http');
+
+
+var fs=require('fs');
+
+
+var url=require('url');
+
+
+//函数封装  读取文件
+
+function read(str,res){
+    fs.readFile("."+str,function(err,data){
+        if(!err){
+            res.write(data);
+            res.end();
+        }
+    })
+}
+
+
+var server=http.createServer(function(req,res,next){
+
+    //首先处理请求路径
+
+    var pathname=url.parse(req.url).pathname;
+
+    console.log(pathname);
+
+    if(pathname=='/'){
+        read('/index.html',res)
+    }else if(pathname!='/favicon.ico'){
+        read(pathname,res);
+    }
+
+
+})
+
+server.listen(8080,function(err){
+    if(!err){
+        console.log('服务器运行成功')
+    }
+})
+```
